@@ -1,0 +1,284 @@
+{
+  "id": "whyour.app.sub",
+  "name": "whyour应用订阅",
+  "author": "@whyour",
+  "icon": "https://avatars2.githubusercontent.com/u/22700758?s=88&u=26d911ccb8345dac955238c2ed6c572892ef924a&v=4",
+  "repo": "https://github.com/whyour/hundun",
+  "apps": [
+    {
+      "id": "supermarket",
+      "name": "京东超市",
+      "keys": ["zd_shelf_level", "zd_product_level"],
+      "settings": [
+        {
+          "id": "zd_upgrade_cheapest_product",
+          "name": "只升级等级最低的一件商品且消耗200万金币以下",
+          "val": true,
+          "type": "boolean",
+          "desc": "完成超市赚钱升级商品任务200万金币"
+        },
+        {
+          "id": "zd_product_level",
+          "name": "升级商品等级",
+          "val": "",
+          "type": "text",
+          "desc": "填写每次需要自动升级的商品的等级，默认自动升一级."
+        },
+        {
+          "id": "zd_shelf_level",
+          "name": "升级货架等级",
+          "val": "",
+          "type": "text",
+          "desc": "填写每次需要自动升级的货架的等级，默认自动升一级."
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/shareCode-auto.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/shareCode-auto.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxc_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxc.png"
+      ]
+    },
+    {
+      "id": "caiyun",
+      "name": "彩云天气",
+      "keys": ["caiyun_svip", "caiyun_location"],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/caiyun.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/caiyun.js",
+      "icons": [
+        "https://raw.githubusercontent.com/Orz-3/mini/master/caiyun.png",
+        "https://raw.githubusercontent.com/Orz-3/task/master/caiyun.png"
+      ]
+    },
+    {
+      "id": "jd_ddxw",
+      "name": "东东小窝",
+      "keys": ["jd_ddxw_name1", "jd_ddxw_name2"],
+      "settings": [
+        {
+          "id": "xw_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "jd_wob_lottery",
+          "name": "窝币抽奖",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否消耗200窝币进行抽奖，默认不进行付费抽奖，只进行免费抽奖"
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/ddxw.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/ddwx.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/ddxw_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/ddxw.png"
+      ]
+    },
+    {
+      "id": "jdzz",
+      "name": "京东赚赚小程序",
+      "keys": ["jdzz_token1", "jdzz_token2"],
+      "settings": [
+        {
+          "id": "zz_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "jd_zzExchangePrize",
+          "name": "红包金额",
+          "val": "",
+          "type": "text",
+          "desc": "填写要兑换的红包金额，不填写不自动兑换，例如：0.25，2，5，10，50，100"
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/jdzz.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/jdzz.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jdzz_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jdzz.png"
+      ]
+    },
+    {
+      "id": "jdkc",
+      "name": "京东库存查询",
+      "keys": ["jd_skuIds", "jd_areaId"],
+      "settings": [
+        {
+          "id": "jd_skuIds",
+          "name": "商品id",
+          "val": "",
+          "type": "text",
+          "desc": "填写商品id，多个商品以英文逗号分隔，获取方法参考脚本头部说明."
+        },
+        {
+          "id": "jd_areaId",
+          "name": "地区id",
+          "val": "",
+          "type": "text",
+          "desc": "填写收货地址id，获取方法参考脚本头部说明."
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/jd_stock.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/jd_stock.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jddj.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jddj.png"
+      ]
+    },
+    {
+      "id": "jd_ddgc",
+      "name": "东东工厂",
+      "settings": [
+        {
+          "id": "dd_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "dd_autoCharge",
+          "name": "自动充电",
+          "val": false,
+          "type": "boolean",
+          "desc": "当电量足够充满当前商品是，是否自动充电，默认不自动充电"
+        },
+        {
+          "id": "dd_notifyTime",
+          "name": "东东工厂通知时间",
+          "val": "",
+          "type": "text",
+          "desc": "防止频繁通知，可以设置通知时间，24小时制，比如 19 或者 19:30，多个时间以英文逗号隔开."
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/dd_factory.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/dd_factory.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jd_factory_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jd_factory.png"
+      ]
+    },
+    {
+      "id": "jx_gc",
+      "name": "京喜工厂",
+      "settings": [
+        {
+          "id": "gc_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "gc_autoCharge",
+          "name": "自动充能",
+          "val": true,
+          "type": "boolean",
+          "desc": "收取能量后自动充能，默认不自动充"
+        },
+        {
+          "id": "gc_notifyTime",
+          "name": "京喜工厂通知时间",
+          "val": "",
+          "type": "text",
+          "desc": "防止频繁通知，可以设置通知时间，24小时制，比如 19 或者 19:30，多个时间以英文逗号隔开."
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/jx_factory.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_factory.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jdgc_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jdgc.png"
+      ]
+    },
+    {
+      "id": "jx_cfd",
+      "name": "京喜财富岛",
+      "settings": [
+        {
+          "id": "cfd_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "cfd_notifyTime",
+          "name": "京喜财富岛通知时间",
+          "val": "",
+          "type": "text",
+          "desc": "防止频繁通知，可以设置通知时间，24小时制，比如 19 或者 19:30，多个时间以英文逗号隔开."
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://raw.githubusercontent.com/MoPoQAQ/Script/main/Me/jx_cfd.js",
+      "script": "https://raw.githubusercontent.com/MoPoQAQ/Script/main/Me/jx_cfd.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxcfd_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png"
+      ]
+    },
+    {
+      "id": "jx_nc",
+      "name": "京喜农场",
+      "keys": ["jxnc_token1", "jxnc_token2"],
+      "settings": [
+        {
+          "id": "nc_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_nc.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxnc_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxnc.png"
+      ]
+    },
+    {
+      "id": "didi",
+      "name": "滴滴出行",
+      "keys": ["didi_token", "didi_city_id", "didi_lid", ""],
+      "settings": [
+        {
+          "id": "didi_showLog",
+          "name": "日志开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开接口返回详情日志打印，默认关闭"
+        },
+        {
+          "id": "didi_lottery",
+          "name": "抽奖开关",
+          "val": false,
+          "type": "boolean",
+          "desc": "是否打开福利金抽奖，默认关闭"
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://github.com/whyour/hundun/blob/master/quanx/didi.js",
+      "script": "https://raw.githubusercontent.com/whyour/hundun/master/quanx/didi.js",
+      "icons": [
+        "https://raw.githubusercontent.com/Orz-3/mini/master/didi.png",
+        "https://raw.githubusercontent.com/Orz-3/task/master/didi.png"
+      ]
+    }
+  ]
+}
