@@ -287,7 +287,7 @@
       "descs_html": [
         "请勿随意在输入框修改内容，建议通过脚本去获取Token，若要修改，请按照JSON 格式修改。",
         "脚本地址【<a href=\"https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_extra.token.js\">京喜多 Token获取</a>】,并按照此脚本注释进行配置",
-        "注：<\br>1.如与whyour的京喜Token重复，建议在此处删除重复的Token<\br>2.如京喜农场黑号，可以将whyour的jxtoken1删除，自动使用此token参数代替"
+        "注：<br>1.如与whyour的京喜Token重复，建议在此处删除重复的Token<br>2.如京喜农场黑号，可以将whyour的jxtoken1删除，自动使用此token参数代替"
       ],
       "settings": [
         {
