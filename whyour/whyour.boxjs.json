@@ -279,6 +279,34 @@
         "https://raw.githubusercontent.com/Orz-3/mini/master/didi.png",
         "https://raw.githubusercontent.com/Orz-3/task/master/didi.png"
       ]
-    }
+    },
+	{
+      "id": "JX_Tokens",
+      "name": "京喜多账号 Token 管理",
+      "keys": ["TokensJX"],
+      "descs_html": [
+        "请勿随意在输入框修改内容，建议通过脚本去获取Token，若要修改，请按照JSON 格式修改。",
+        "脚本地址【<a href=\"https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_extra.token.js\">京喜多 Token获取</a>】,并按照此脚本注释进行配置",
+        "注：<\br>1.如与whyour的京喜Token重复，建议在此处删除重复的Token<\br>2.如京喜农场黑号，可以将whyour的jxtoken1删除，自动使用此token参数代替"
+      ],
+      "settings": [
+        {
+          "id": "TokensJX",
+          "name": "Token 列表",
+          "val": "",
+          "type": "textarea",
+          "autoGrow": true,
+          "rows": 8,
+          "desc": "Token 列表 (JSON 格式)"
+        }
+      ],
+      "author": "@whyour",
+      "repo": "https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_extra.token.js",
+      "script": "https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_extra.token.js",
+      "icons": [
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxnc_mini.png",
+        "https://raw.githubusercontent.com/58xinian/icon/master/jxnc.png"
+      ]
+    },
   ]
 }
