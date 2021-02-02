@@ -862,7 +862,7 @@ function getTokens() {
       $.tokenArr.push(jdTokenNode[item] ? JSON.parse(jdTokenNode[item]) : '{}');
     })
   } else {
-    $.tokenArr = [JSON.parse($.getdata('jx_tokens') || '[]')];
+    $.tokenArr = JSON.parse($.getdata('jx_tokens') || '[]');
   }
   if (!$.tokenArr[0]) {
     $.msg(
