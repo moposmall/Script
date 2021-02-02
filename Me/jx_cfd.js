@@ -3,7 +3,7 @@
     Name: 京喜财富岛
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
-    Update: 2021/1/21 13:30
+    Update: 2021/2/2 13:00
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -862,7 +862,7 @@ function getTokens() {
       $.tokenArr.push(jdTokenNode[item] ? JSON.parse(jdTokenNode[item]) : '{}');
     })
   } else {
-    $.tokenArr = [$.getdata('jxnc_token1') || '{}', $.getdata('jxnc_token2') || '{}'];
+    $.tokenArr = [JSON.parse($.getdata('jx_tokens') || '[]')];
   }
   if (!$.tokenArr[0]) {
     $.msg(
