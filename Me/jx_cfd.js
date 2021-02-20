@@ -928,7 +928,7 @@ function showMsg() {
       $.msg($.name, "", `\n${$.result.join("\n")}`);
     }
     
-    if ($.isNode() && process.env.CFD_NOTIFY_CONTROL)
+    if ($.isNode() && process.env.CFD_NOTIFY_CONTROL === 'true')
       await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.userName}\n${$.result.join("\n")}`);
       
     resolve();
