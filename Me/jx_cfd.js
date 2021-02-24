@@ -4,7 +4,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/2/24 12:50
+    Updated: 2021/2/24 20:00
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -741,6 +741,11 @@ function submitInviteId(userName) {
 }
 
 //随机超级助力好友
+//user/JoinScene
+//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614129401306&ptag=&
+//strShareId=90A15070F26FE5335C0DD5B80BC737B570EE3333E55C6586B913301C30BBD298&dwSceneId=1001&dwType=2
+//&strPgtimestamp=1614129401239&strPhoneID=1fdab515ff3293f7fa8979661e521458d5a7a0b3&strPgUUNum=5e9a1cf37e0ad6fbe634840fcfe0ebb3
+//&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone
 function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
@@ -856,13 +861,18 @@ function openGroup() {
 }
 
 //助力好友寻宝大作战
+//user/JoinGroup
+//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614153421905&ptag=138920.20.4&
+//strGroupId=Jxcfd_GroupId_202_37661794&dwIsNewUser=0&pgtimestamp=1614153421889&phoneID=1fdab515ff3293f7fa8979661e521458d5a7a0b3&pgUUNum=794e1fa83f6455e43a18853b4f6e1419
+//&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsNewUser%2CpgUUNum%2Cpgtimestamp%2CphoneID%2Cptag%2Csource%2CstrGroupId%2CstrZone&_ste=1
+//&_=1614153421918&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
 function joinGroup() {
   return new Promise( async (resolve) => {
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd-group' }, (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl(`user/JoinGroup`, `strGroupId=${data.value}&dwIsNewUser=${$.info.dwIsNewUser}&pgtimestamp=${$.currentToken['timestamp']}&phoneID=${$.currentToken['phoneid']}&pgUUNum=${$.currentToken['farm_jstoken']}`), (err, resp, data) => {
+        $.get(taskUrl(`user/JoinGroup`, `strGroupId=${data.value}&dwIsNewUser=${$.info.dwIsNewUser}&pgtimestamp=${$.currentToken['timestamp']}&phoneID=${$.currentToken['phoneid']}&pgUUNum=${$.currentToken['farm_jstoken']}&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsNewUser%2CpgUUNum%2Cpgtimestamp%2CphoneID%2Cptag%2Csource%2CstrGroupId%2CstrZone`), (err, resp, data) => {
           try {
             const { sErrMsg } = JSON.parse(data);
             $.log(`\n【🏝寻宝大作战】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
