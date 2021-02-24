@@ -4,7 +4,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/2/24 9:00
+    Updated: 2021/2/24 12:50
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -411,7 +411,7 @@ function advEmployeeAward(_key, strSceneName) {
 //&_stk=_cfd_t%2CbizCode%2CdwEnv%2Cptag%2Csource%2CstrZone&_ste=1
 //&_=1614127340124&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
 function promotionAward() {
-  $.get(taskUrl(), async (err, resp, data) => {
+  $.get(taskUrl(`user/PromotionAward`, `_stk=_cfd_t%2CbizCode%2CdwEnv%2Cptag%2Csource%2CstrZone`), async (err, resp, data) => {
     try {
       const { sErrMsg, strPrizeName } = JSON.parse(data);
       $.log(`\n💰岛主升级奖励：${ sErrMsg == 'success' ? `获取升级奖励：¥ ${strPrizeName || 0}` : sErrMsg } \n${$.showLog ? data : ""}`);
