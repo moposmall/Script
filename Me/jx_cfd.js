@@ -3,7 +3,8 @@
     Name: 京喜财富岛
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
-    Update: 2021/2/20 20:00
+    Created：2020/x/xx xx:xx
+    Updated: 2021/2/24 9:00
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -77,6 +78,12 @@
       ## 默认为 "false"，静默，不发送推送通知消息，如想收到通知，请修改为 "true"
       ## 如果你不想完全关闭或者完全开启通知，只想在特定的时间发送通知，可以参考上面面的“定义东东萌宠是否静默运行”部分，设定几个if判断条件
       export CFD_NOTIFY_CONTROL=""
+
+    logs:
+    2021/2/24 9:00
+      - 添加自动领取年终福利活动
+      - 添加自动领取升级奖励
+      - 修复超级助力App环境问题
 *
 **/
 
@@ -112,6 +119,13 @@ $.info = {};
          
       await $.wait(500);
       await querySignList();
+
+      //领取岛主升级奖励
+      promotionAward();
+
+      //领取年终福利
+      await $.wait(500);
+      getAdvEmployee(1001);
 
       await $.wait(500);
       await getMoney();
@@ -345,6 +359,65 @@ function getMoney_dwSource_3( _key, sceneList ) {
         }
       }
     );
+  });
+}
+
+//判断年终福利是否领取
+//user/GetAdvEmployee
+//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614127340116&ptag=138631.26.55&
+//dwSenceId=1001&dwIsSlave=0&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsSlave%2CdwSenceId%2Cptag%2Csource%2CstrZone
+//&_=1614127340121&sceneval=2&g_login_type=1&callback=jsonpCBKH&g_ty=ls
+function getAdvEmployee(_key) { 
+  $.get(taskUrl(`user/GetAdvEmployee`, `dwSenceId=${_key}&dwIsSlave=0&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsSlave%2CdwSenceId%2Cptag%2Csource%2CstrZone`), async(err, resp, data) => {
+    try {
+      const { SceneEmployeeInfo:{ SceneId, SceneName, dwCurStage } , dwNextSceneId, sErrMsg } = JSON.parse(data);
+      if( sErrMsg === `success` && dwCurStage === 1) {
+        await advEmployeeAward( SceneId, SceneName );
+        await $.wait(500);
+        if(dwNextSceneId > 0 ) {
+          _key = dwNextSceneId;
+          getAdvEmployee (_key);
+        }
+      }
+    } catch (e) {
+      $.logErr(e, resp);
+    }
+  });
+}
+
+//领取年终福利
+//user/AdvEmployeeAward
+//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614127342671&ptag=138631.26.55
+//&dwSenceId=1001&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSenceId%2Cptag%2Csource%2CstrZone&_ste=1
+//&_=1614127342672&sceneval=2&g_login_type=1&callback=jsonpCBKQ&g_ty=ls
+function advEmployeeAward(_key, strSceneName) {
+  return new Promise(async (resolve) =>{
+    $.get(taskUrl(`user/AdvEmployeeAward`,`dwSenceId=${_key}&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSenceId%2Cptag%2Csource%2CstrZone`), async(err, resp, data) => {
+      try {
+        const  { sErrMsg, strAwardDetail: { strName } } = JSON.parse(data);
+        $.log(`\n【${strSceneName}】💰雇主奖励：${ sErrMsg == 'success' ? `获取雇主奖励：¥ ${strName || 0}` : sErrMsg } \n${$.showLog ? data : ""}`);
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve();
+      }
+    });
+  });
+}
+
+//领取岛主升级奖励
+//user/PromotionAward
+//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614127340122&ptag=138631.26.55
+//&_stk=_cfd_t%2CbizCode%2CdwEnv%2Cptag%2Csource%2CstrZone&_ste=1
+//&_=1614127340124&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
+function promotionAward() {
+  $.get(taskUrl(), async (err, resp, data) => {
+    try {
+      const { sErrMsg, strPrizeName } = JSON.parse(data);
+      $.log(`\n💰岛主升级奖励：${ sErrMsg == 'success' ? `获取升级奖励：¥ ${strPrizeName || 0}` : sErrMsg } \n${$.showLog ? data : ""}`);
+    } catch (e) {
+      $.logErr(e, resp);
+    }
   });
 }
 
@@ -676,7 +749,7 @@ function createSuperAssistUser() {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(data.value)}&dwSceneId=${sceneId}&dwType=2`), async (err, resp, data) => {
+        $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(data.value)}&dwSceneId=${sceneId}&dwType=2&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone`), async (err, resp, data) => {
           try {
             const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
             $.log(`\n【👫🏻超级助力】超级助力：${sErrMsg}\n${$.showLog ? data : ''}`);
