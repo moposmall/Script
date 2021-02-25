@@ -4,7 +4,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/2/24 21:00
+    Updated: 2021/2/25 11:11
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -84,6 +84,8 @@
       - 添加自动领取年终福利活动
       - 添加自动领取升级奖励
       - 修复超级助力App环境问题
+    2021/2/25 11:11
+      - 修复长时间不改代码问题
 *
 **/
 
@@ -107,7 +109,7 @@ $.info = {};
   if (!getTokens()) return;
   for (let i = 0; i < $.cookieArr.length; i++) {
     $.currentCookie = $.cookieArr[i];
-    $.currentToken = $.tokenArr[i];
+    $.currentToken = $.tokenArr[i] || {};
     if ($.currentCookie) {
       $.userName = decodeURIComponent($.currentCookie.match(/pt_pin=(.+?);/) && $.currentCookie.match(/pt_pin=(.+?);/)[1]);
       $.index = i + 1;
