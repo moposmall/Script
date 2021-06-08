@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created：2021/6/4 23:30
-    Updated: 2021/6/6 10:30
+    Updated: 2021/6/9 7:30
     
     ！！！先将新手任务做完，再执行本脚本，不然会出现未知错误
     cron 10 * * * * 或者 0 10 * * * *
@@ -42,7 +42,7 @@ $.appId = 10028;
             const homepageinfo = await GetHomePageInfo();
             await GetSelfResult();
 
-            for (let n = 0; n <= 20; n++) {
+            for (let n = 0; n <= 4; n++) {
                 await $.wait(800);
                 await Action(1);
                 await $.wait(800);
@@ -113,7 +113,7 @@ function GetHomePageInfo() {
 
 
 function Action(type) {
-    return new Promise(async(resolve) => {
+    return new Promise(async (resolve) => {
         switch (type) {
             case 1:
                 for (let i = 0; i < $.petid.length; i++) {
@@ -125,8 +125,16 @@ function Action(type) {
                                 message,
                                 ret
                             } = JSON.parse(_data);
-                            $.log(_data);
-                            $.log(`收取💰 ${message}, 收取私房钱 ¥ ${addcoins}`);
+                            if (ret == 0 && addcoins == 0) {
+                                resolve();
+                            }
+                            else if (ret == 0 && addcoins > 0) {
+                                $.log(_data);
+                                $.log(`收取💰 ${message}, 收取私房钱 ¥ ${addcoins}`);
+                            }
+                            else {
+                                $.log(`今天的机会用完了～`);
+                            }
                         }
                         catch (e) {
                             $.logErr(e, resp);
@@ -146,9 +154,16 @@ function Action(type) {
                             message,
                             ret
                         } = JSON.parse(_data);
-                        //$.log(_data);
-                        if (message == "")
+                        if (ret == 0 && addcoins == 0) {
+                            resolve();
+                        }
+                        else if (ret == 0 && addcoins > 0) {
+                            $.log(_data);
                             $.log(`割草🌿 ${message}, 领取金币 ¥ ${addcoins}`);
+                        }
+                        else {
+                            $.log(`今天的机会用完了～`);
+                        }
                     }
                     catch (e) {
                         $.logErr(e, resp);
@@ -165,9 +180,13 @@ function Action(type) {
 
 function GetSelfResult() {
     return new Promise(async (resolve) => {
-        $.get(taskUrl(`operservice/GetSelfResult`,`&type=14&itemid=undefined`,`channel,sceneid,type`), async (err, resp, _data) => {
+        $.get(taskUrl(`operservice/GetSelfResult`, `&type=14&itemid=undefined`, `channel,sceneid,type`), async (err, resp, _data) => {
             try {
-                $.log(_data);
+                const { data, message, ret } = JSON.parse(_data);
+                if (ret == 0)
+                    $.log(_data);
+                else
+                    $.log(`没有草丛礼盒🎁可以收取`);
                 //$.log(`收取💰 ${message}, 收取私房钱 ¥ ${addcoin}`);
             }
             catch (e) {
