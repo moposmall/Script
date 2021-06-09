@@ -6,7 +6,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/6/9 20:00
+    Updated: 2021/6/9 22:00
     Thanks:
       whyour大佬
       GitHub: https://github.com/whyour
@@ -80,7 +80,8 @@ $.info = {};
 $.strPhoneID = '';
 $.strPgtimestamp = '';
 $.strPgUUNum = '';
-let nice = "tPOamqCuk9NLgVPAljUyIHcPRmKlVxDy"
+let nice = "tPOamqCuk9NLgVPAljUyIHcPRmKlVxDy";
+$.appId = 10009;
 
 !(async () => {
   if (!getCookies()) return;
