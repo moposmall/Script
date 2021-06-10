@@ -6,7 +6,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/6/9 22:00
+    Updated: 2021/6/10 22:00
     Thanks:
       whyour大佬
       GitHub: https://github.com/whyour
@@ -172,8 +172,7 @@ $.appId = 10009;
   .catch((e) => $.logErr(e))
   .finally(() => $.done());
 
-// jxcfd/user/QueryUserInfo?
-// strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1623240830281&ptag=7155.9.47&ddwTaskId=&strShareId=&_stk=_cfd_t%2CbizCode%2CddwTaskId%2CdwEnv%2Cptag%2Csource%2CstrShareId%2CstrZone&_ste=1&h5st=20210609201350282%3B4075501589651162%3B10009%3Btk01wc3271c6ba8nYnhIU3NoYjEwBWRk8wJNprtee4cIn%2F40DqRTMRlGCjYZjTrlY8jZ7FboMEEifVIWY5r%2Bk7VKLWrg%3B6c27404d0f884a954a3ca48a1d11f365f81d9f3d8d7892cd0b4f405aa6aeefb8&_=1623240830287&sceneval=2&g_login_type=1&callback=jsonpCBKA&g_ty=ls
+
 function getUserInfo() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/QueryUserInfo`, `ptag=7155.9.47`, `_cfd_t,bizCode,ddwTaskId,dwEnv,ptag,source,strShareId,strZone`), (err, resp, data) => {
@@ -218,8 +217,6 @@ function getUserInfo() {
 }
 
 //签到列表
-// /jxcfd/task/QuerySignListV2?
-// strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1623241005564&ptag=&_stk=_cfd_t%2CbizCode%2CdwEnv%2Cptag%2Csource%2CstrZone&_ste=1&h5st=20210609201645565%3B2319738197510188%3B10009%3Btk01w7fa61b91a8nZXZ0UG1KNThmCDX8l17vfUjeNgy4%2BH2KeBO7PAJg5C3LOayqxMrGk7NiEMey8Qbqc4vJavW0PfsI%3B704983240b71659fe19715b47db4354b60ef99c9a8d8aeee5b2d4707190e1792&_=1623241005567&sceneval=2&g_login_type=1&callback=jsonpCBKZ&g_ty=ls
 function querySignList() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`task/QuerySignListV2`, `ptag=`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
@@ -424,7 +421,7 @@ function friendCircle() {
 //获取好友信息
 function queryFriendIsland(strShareId,) {
   return new Promise(async (resolve) => {
-    $.get(taskUrl(`user/QueryFriendIsland`, `ptag=&strShareId=${strShareId}&sceneval=2`, `_cfd_t,bizCode,dwEnv,ptag,source,strShareId,strZone`),
+    $.get(taskUrl(`user/QueryFriendIsland`, `ptag=7155.9.47&strShareId=${strShareId}&sceneval=2`, `_cfd_t,bizCode,ddwTaskId,dwEnv,ptag,source,strShareId,strZone`),
       async (err, resp, data) => {
         try {
           //$.log(`\n获取好友信息\n${data}`);
@@ -449,7 +446,7 @@ function queryFriendIsland(strShareId,) {
 //偷财富
 function stealMoney(strShareId, sceneId, strFriendNick, strSceneName) {
   return new Promise(async (resolve) => {
-    $.get(taskUrl(`user/StealMoney`, `ptag=&strFriendId=${strShareId}&dwSceneId=${sceneId}&sceneval=2`), async (err, resp, data) => {
+    $.get(taskUrl(`user/StealMoney`, `ptag=&strFriendId=${strShareId}&dwSceneId=${sceneId}&sceneval=2`,`_cfd_t,bizCode,dwEnv,dwSceneId,ptag,source,strFriendId,strZone`), async (err, resp, data) => {
       try {
         //$.log(data);
         const { dwGetMoney, iRet, sErrMsg } = JSON.parse(data);
@@ -482,8 +479,6 @@ async function treasureHunt() {
   }
 }
 
-///jxcfd/consume/TreasureHunt?strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1623240842801&ptag=7155.9.47&strIndex=tree&dwIsShare=0
-// &_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsShare%2Cptag%2Csource%2CstrIndex%2CstrZone&_ste=1&h5st=20210609201402801%3B4075501589651162%3B10009%3Btk01wc3271c6ba8nYnhIU3NoYjEwBWRk8wJNprtee4cIn%2F40DqRTMRlGCjYZjTrlY8jZ7FboMEEifVIWY5r%2Bk7VKLWrg%3B8d33a59c8cc9fdbc6897c73e1ae02e521b193db66059fc3b96c11bb3a4e03ce7&_=1623240842804&sceneval=2&g_login_type=1&callback=jsonpCBKU&g_ty=ls
 function doTreasureHunt(place) {
   return new Promise(async (resolve) => {
     $.get(
@@ -522,7 +517,7 @@ function getTaskList(taskType) {
         });
         break;
       case 1: //成就任务
-        $.get(taskUrl(`consume/AchieveInfo`,`ptag=`,``), async (err, resp, data) => {
+        $.get(taskUrl(`consume/AchieveInfo`,`ptag=7155.9.47`,`_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
           try {
             const { iRet, sErrMsg, taskinfo = [] } = JSON.parse(data);
             $.allTask = taskinfo.filter((x) => x.dwAwardStatus === 1);
@@ -589,8 +584,6 @@ function browserTask(taskType) {
   });
 }
 
-// /newtasksys/newtasksys_front/DoTask?strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1623247522076&ptag=&taskId=1592&configExtra=10399891
-// &_stk=_cfd_t%2CbizCode%2CconfigExtra%2CdwEnv%2Cptag%2Csource%2CstrZone%2CtaskId&_ste=1&h5st=20210609220522079%3B2319738197510188%3B10009%3Btk01w7fa61b91a8nZXZ0UG1KNThmCDX8l17vfUjeNgy4%2BH2KeBO7PAJg5C3LOayqxMrGk7NiEMey8Qbqc4vJavW0PfsI%3B2a1ec86e93e12b6951d54702bd170bcad1521739fe4f11548cee0d67491a7789&_=1623247522082&sceneval=2&g_login_type=1&callback=jsonpCBKVVV&g_ty=ls
 //做任务
 function doTask(taskinfo) {
   return new Promise(async (resolve) => {
@@ -846,7 +839,7 @@ function submitGroupId() {
 //开启寻宝大作战
 function openGroup() {
   return new Promise(async (resolve) => {
-    $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`), async (err, resp, data) => {
+    $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`,`_cfd_t,bizCode,dwEnv,dwIsNewUser,ptag,source,strZone`), async (err, resp, data) => {
       try {
         const { sErrMsg } = JSON.parse(data);
         $.log(`\n【🏝寻宝大作战】${sErrMsg}\n${$.showLog ? data : ''}`);
