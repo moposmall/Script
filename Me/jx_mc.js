@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created：2021/6/4 23:30
-    Updated: 2021/6/8 21:00
+    Updated: 2021/6/11 17:00
     Thanks: 
         https://github.com/whyour
         https://www.orzlee.com/web-development/2021/03/03/lxk0301-jingdong-signin-scriptjingxi-factory-solves-the-problem-of-unable-to-signin.html
@@ -70,15 +70,16 @@ $.appId = 10028;
 
             // 购物
             await $.wait(500);
-            await UseCoin(homepageinfo)
+            await UseCoin(homepageinfo);
 
-            // 领金蛋
-            await $.wait(500);
-            await GetSelfResult(homepageinfo);
-
-            // 喂食
-            await $.wait(500);
-            await Feed(homepageinfo);
+            for (let i = 0; i <= 2; i++) {
+                // 领金蛋
+                await $.wait(500);
+                await GetSelfResult(homepageinfo);
+                // 喂食
+                await $.wait(500);
+                await Feed(homepageinfo);
+            }
         }
     }
     await $.wait(500);
