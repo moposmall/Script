@@ -42,7 +42,7 @@ $.appId = 10028;
             const homepageinfo = await GetHomePageInfo();
             await GetSelfResult();
 
-            for (let n = 0; n <= 4; n++) {
+            for (let n = 0; n <= 6; n++) {
                 await $.wait(800);
                 await Action(1);
                 await $.wait(800);
