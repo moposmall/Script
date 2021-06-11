@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created：2021/6/4 23:30
-    Updated: 2021/6/11 17:00
+    Updated: 2021/6/11 22:00
     Thanks: 
         https://github.com/whyour
         https://www.orzlee.com/web-development/2021/03/03/lxk0301-jingdong-signin-scriptjingxi-factory-solves-the-problem-of-unable-to-signin.html
@@ -70,16 +70,15 @@ $.appId = 10028;
 
             // 购物
             await $.wait(500);
-            await UseCoin(homepageinfo);
+            await UseCoin(homepageinfo)
 
-            for (let i = 0; i <= 2; i++) {
-                // 领金蛋
-                await $.wait(500);
-                await GetSelfResult(homepageinfo);
-                // 喂食
-                await $.wait(500);
-                await Feed(homepageinfo);
-            }
+            // 领金蛋
+            await $.wait(500);
+            await GetSelfResult(homepageinfo);
+
+            // 喂食
+            await $.wait(500);
+            await Feed(homepageinfo);
         }
     }
     await $.wait(500);
@@ -281,6 +280,8 @@ function GetCoin(homepageinfo) {
             } = homepageinfo;
             //$.log(lastgettime);
             const token = new MD5().MD5.createMD5String(lastgettime);
+            const token2 = $.CryptoJS.MD5(lastgettime).toString();
+            $.log(token, token2);
             $.get(taskUrl(`operservice/GetCoin`, `&token=${token}`, 'channel,sceneid,token'), async (err, resp, _data) => {
                 try {
                     // 格式化JSON数据
@@ -360,14 +361,15 @@ function Feed(homepageinfo) {
 // 买白菜 > 孵化小鸡
 function UseCoin(homepageinfo) {
     return new Promise(async (resolve) => {
-        const { coins } = homepageinfo;
+        const { coins, materialinfo } = homepageinfo;
         const CurrCoin = coins / 5000;
-        //$.log(CurrCoin);
-        if (CurrCoin >= 2) {
+        const info = materialinfo.filter(x => x.type === 1);
+        const { value } = info[0];
+        if (CurrCoin >= 2 && value <= 1200) {
             await Buy();
             resolve();
         }
-        else if (CurrCoin >= 1) {
+        else if (CurrCoin >= 1 && value <= 1200) {
             await Buy();
             resolve();
         }
