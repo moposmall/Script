@@ -3,7 +3,7 @@
     Name: 京喜牧场清空白菜
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
-    Created：2021/6/11 14:30
+    Created：2021/6/11 20:30
     Updated: 
     
     按需手动运行脚本
@@ -44,11 +44,14 @@ $.appId = 10028;
 
             for (let i = 1; i <= parseInt(value/10) ; i++) {
                 // 领金蛋
-                await $.wait(500);
+                await $.wait(1000);
                 await GetSelfResult(homepageinfo);
                 // 喂食
-                await $.wait(500);
+                await $.wait(1000);
                 await Feed(homepageinfo);
+                // 用户信息
+                await $.wait(500);
+                homepageinfo = await GetHomePageInfo();
             }
         }
     }
