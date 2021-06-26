@@ -6,7 +6,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/6/10 23:30
+    Updated: 2021/6/26 22:00
     Thanks:
       whyour大佬
       GitHub: https://github.com/whyour
@@ -177,6 +177,10 @@ function getUserInfo() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/QueryUserInfo`, `ptag=7155.9.47`, `_cfd_t,bizCode,ddwTaskId,dwEnv,ptag,source,strShareId,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const {
           iret,
           SceneList = {},
@@ -221,6 +225,10 @@ function querySignList() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`task/QuerySignListV2`, `ptag=`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { iRet, sData: { Sign = [{}], dwUserFlag }, sErrMsg } = JSON.parse(data);
         $.log(`\n签到列表：${sErrMsg}\n${$.showLog ? data : ""}`);
         const [{ dwStatus, ddwMoney }] = Sign.filter(x => x.dwShowFlag === 1);
@@ -250,6 +258,10 @@ async function userSignReward(dwUserFlag, ddwMoney) {
       async (err, resp, data) => {
         try {
           //$.log(data)
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { iRet, sData: { ddwMoney }, sErrMsg } = JSON.parse(data);
           $.log(`\n📌签到：${sErrMsg}，获得财富 ¥ ${ddwMoney || 0}\n${$.showLog ? data : ""}`);
         } catch (e) {
@@ -299,6 +311,10 @@ function getMoney_dwSource_1(_key, sceneList) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=undefined&dwSource=1`, `_cfd_t,bizCode,dwEnv,dwSceneId,dwSource,ptag,source,strEmployeeId,strZone`),
       async (err, resp, data) => {
         try {
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { iRet, dwMoney, sErrMsg } = JSON.parse(data);
           $.log(`\n【${sceneList[_key].strSceneName}】🏝岛主 : ${sErrMsg == 'success' ? `获取财富值：¥ ${dwMoney || 0}` : sErrMsg} \n${$.showLog ? data : ""}`);
         } catch (e) {
@@ -318,6 +334,10 @@ function getMoney_dwSource_2(_key, sceneList, key) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=${key}&dwSource=2`, `_cfd_t,bizCode,dwEnv,dwSceneId,dwSource,ptag,source,strEmployeeId,strZone`),
       async (err, resp, data) => {
         try {
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { dwMoney, iRet, sErrMsg, strPin } = JSON.parse(data);
           $.log(`\n【${sceneList[_key].strSceneName}】👬好友: ${sErrMsg == 'success' ? `获取普通助力财富值：¥ ${dwMoney || 0}` : sErrMsg} \n${$.showLog ? data : ""}`);
         } catch (e) {
@@ -337,6 +357,10 @@ function getMoney_dwSource_3(_key, sceneList) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=&dwSource=3&strPgtimestamp=${$.strPgtimestamp}&strPhoneID=${$.strPhoneID}&strPgUUNum=${$.strPgUUNum}`, ``),
       async (err, resp, data) => {
         try {
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { iRet, dwMoney, sErrMsg, strPin } = JSON.parse(data);
           $.log(`\n【${sceneList[_key].strSceneName}】👬好友: ${sErrMsg == 'success' ? `获取超级助力财富值：¥ ${dwMoney || 0}` : sErrMsg} \n${$.showLog ? data : ""}`);
         } catch (e) {
@@ -354,6 +378,10 @@ function getAdvEmployee(_key) {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GetAdvEmployee`, `ptag=&dwSenceId=${_key}&dwIsSlave=0`, `_cfd_t,bizCode,dwEnv,dwIsSlave,dwSenceId,ptag,source,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { SceneEmployeeInfo: { SceneId, SceneName, dwCurStage }, dwNextSceneId, sErrMsg } = JSON.parse(data);
         if (sErrMsg === `success` && dwCurStage === 1) {
           //await advEmployeeAward(SceneId, SceneName);
@@ -375,6 +403,10 @@ function advEmployeeAward(_key, strSceneName) {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/AdvEmployeeAward`, `dwSenceId=${_key}`, `_cfd_t,bizCode,dwEnv,dwSenceId,ptag,source,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { sErrMsg, strAwardDetail: { strName } } = JSON.parse(data);
         $.log(`\n【${strSceneName}】💰雇主奖励：${sErrMsg == 'success' ? `获取雇主奖励：¥ ${strName || 0}` : sErrMsg} \n${$.showLog ? data : ""}`);
       } catch (e) {
@@ -391,6 +423,10 @@ function promotionAward() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/PromotionAward`, ``, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { sErrMsg, strPrizeName } = JSON.parse(data);
         $.log(`\n💰岛主升级奖励：${sErrMsg == 'success' ? `获取升级奖励：¥ ${strPrizeName || 0}` : sErrMsg} \n${$.showLog ? data : ""}`);
       } catch (e) {
@@ -406,6 +442,10 @@ function friendCircle() {
     $.get(taskUrl(`user/FriendCircle`, `ptag=&dwPageIndex=1&dwPageSize=20`, `_cfd_t,bizCode,dwEnv,dwPageIndex,dwPageSize,ptag,source,strZone`), async (err, resp, data) => {
       try {
         //$.log(`\n好友圈列表\n${data}`);
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { MomentList = [], iRet, sErrMsg, strShareId } = JSON.parse(data);
         for (moment of MomentList) {
           if (moment.strShareId !== strShareId && moment.dwAccessMoney > 0) {
@@ -429,6 +469,10 @@ function queryFriendIsland(strShareId,) {
       async (err, resp, data) => {
         try {
           //$.log(`\n获取好友信息\n${data}`);
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { SceneList = {}, dwStealMoney, sErrMsg, strFriendNick } = JSON.parse(data);
           if (sErrMsg === "success") {
             const sceneList = eval('(' + JSON.stringify(SceneList) + ')');
@@ -450,9 +494,13 @@ function queryFriendIsland(strShareId,) {
 //偷财富
 function stealMoney(strShareId, sceneId, strFriendNick, strSceneName) {
   return new Promise(async (resolve) => {
-    $.get(taskUrl(`user/StealMoney`, `ptag=&strFriendId=${strShareId}&dwSceneId=${sceneId}&sceneval=2`,`_cfd_t,bizCode,dwEnv,dwSceneId,ptag,source,strFriendId,strZone`), async (err, resp, data) => {
+    $.get(taskUrl(`user/StealMoney`, `ptag=&strFriendId=${strShareId}&dwSceneId=${sceneId}&sceneval=2`, `_cfd_t,bizCode,dwEnv,dwSceneId,ptag,source,strFriendId,strZone`), async (err, resp, data) => {
       try {
         //$.log(data);
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { dwGetMoney, iRet, sErrMsg } = JSON.parse(data);
         $.log(`\n🤏偷取好友【${strFriendNick}】【${strSceneName}】财富值：¥ ${dwGetMoney ? dwGetMoney : sErrMsg}\n${$.showLog ? data : ""}`);
       } catch (e) {
@@ -490,6 +538,10 @@ function doTreasureHunt(place) {
       async (err, resp, data) => {
         try {
           //$.log(data);
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { iRet, dwExpericnce, sErrMsg } = JSON.parse(data);
           $.log(`\n【${place}】🎁寻宝：${sErrMsg} ，获取随机奖励：¥ ${dwExpericnce || 0} \n${$.showLog ? data : ""}`);
           resolve(iRet)
@@ -510,6 +562,10 @@ function getTaskList(taskType) {
       case 0: //日常任务
         $.get(taskListUrl(`GetUserTaskStatusList`, `ptag=7155.9.47&taskId=0`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { ret, data: { userTaskStatusList = [] } = {}, msg } = JSON.parse(data);
             $.allTask = userTaskStatusList.filter((x) => x.awardStatus !== 1);
             $.log(`\n获取【📆日常任务】列表 ${msg}，总共${$.allTask.length}个任务！\n${$.showLog ? data : ""}`);
@@ -521,8 +577,12 @@ function getTaskList(taskType) {
         });
         break;
       case 1: //成就任务
-        $.get(taskUrl(`consume/AchieveInfo`,`ptag=7155.9.47`,`_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
+        $.get(taskUrl(`consume/AchieveInfo`, `ptag=7155.9.47`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
           try {
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { iRet, sErrMsg, taskinfo = [] } = JSON.parse(data);
             $.allTask = taskinfo.filter((x) => x.dwAwardStatus === 1);
             $.log(`\n获取【🎖成就任务】列表 ${sErrMsg}，总共${$.allTask.length}个任务！\n${$.showLog ? data : ""}`);
@@ -603,6 +663,10 @@ function doTask(taskinfo) {
         await $.get(taskListUrl(`DoTask`, `ptag=&taskId=${taskId}&configExtra=${configExtra}`, `_cfd_t,bizCode,configExtra,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
             //$.log(`taskId:${taskId},data:${data}`);
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { msg, ret } = JSON.parse(data);
             $.log(`\n${taskName}【做日常任务】：${msg.indexOf("活动太火爆了") !== -1 ? "任务进行中或者未到任务时间" : msg}\n${$.showLog ? data : ""}`);
             resolve(ret === 0);
@@ -614,10 +678,14 @@ function doTask(taskinfo) {
         });
       }
     }
-    else{
+    else {
       await $.get(taskListUrl(`DoTask`, `ptag=&taskId=${taskId}&configExtra=${configExtra}`, `_cfd_t,bizCode,configExtra,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
         try {
           //$.log(`taskId:${taskId},data:${data}`);
+          if (data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { msg, ret } = JSON.parse(data);
           $.log(`\n${taskName}【做日常任务】：${msg.indexOf("活动太火爆了") !== -1 ? "任务进行中或者未到任务时间" : msg}\n${$.showLog ? data : ""}`);
           resolve(ret === 0);
@@ -637,8 +705,12 @@ function awardTask(taskType, taskinfo) {
     switch (taskType) {
       case 0://日常任务
         const { taskId, taskName } = taskinfo;
-        $.get(taskListUrl(`Award`, `ptag=&taskId=${taskId}`,`_cfd_t,bizCode,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
+        $.get(taskListUrl(`Award`, `ptag=&taskId=${taskId}`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { msg, ret, data: { prizeInfo = '' } = {} } = JSON.parse(data);
             let str = '';
             if (msg.indexOf('活动太火爆了') !== -1) {
@@ -657,8 +729,12 @@ function awardTask(taskType, taskinfo) {
         break
       case 1://成就奖励
         const { strTaskIndex, strTaskDescr } = taskinfo;
-        $.get(taskUrl(`consume/AchieveAward`, `ptag=&strTaskIndex=${strTaskIndex}`,`_cfd_t,bizCode,dwEnv,ptag,source,strZone,strTaskIndex`), async (err, resp, data) => {
+        $.get(taskUrl(`consume/AchieveAward`, `ptag=&strTaskIndex=${strTaskIndex}`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,strTaskIndex`), async (err, resp, data) => {
           try {
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { iRet, sErrMsg, dwExpericnce } = JSON.parse(data);
             $.log(`\n${strTaskDescr}【领成就奖励】： success 获得财富值：¥ ${dwExpericnce}\n${$.showLog ? data : ''}`);
           } catch (e) {
@@ -676,9 +752,13 @@ function awardTask(taskType, taskinfo) {
 
 //娱乐中心 未修改
 function funCenterState() {
-  return new Promise(async(resolve) => {
+  return new Promise(async (resolve) => {
     $.get(taskUrl(`consume/FunCenterState`, `strType=1`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { SlotMachine: { ddwConfVersion, dwFreeCount, strCouponPool, strGoodsPool } = {}, iRet, sErrMsg } = JSON.parse(data);
         if (dwFreeCount == 1) {
           await $.wait(500);
@@ -695,9 +775,13 @@ function funCenterState() {
 
 //抽奖机 未修改
 function soltMachine(strCouponPool, strGoodsPool, ddwConfVersion) {
-  return new Promise(async(resolve) => {
+  return new Promise(async (resolve) => {
     $.get(taskUrl(`consume/SlotMachine`, `strCouponPool=${strCouponPool}&strGoodsPool=${strGoodsPool}&ddwConfVersion=${ddwConfVersion}`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { iRet, sErrMsg, strAwardPoolName } = JSON.parse(data);
         $.log(`\n【抽奖结果】🎰 ${strAwardPoolName != "" ? "未中奖" : strAwardPoolName} \n${$.showLog ? data : ''}`);
       } catch (e) {
@@ -723,6 +807,10 @@ function submitInviteId(userName) {
       },
       async (err, resp, _data) => {
         try {
+          if (_data.startsWith('<')) {
+            resolve();
+            return;
+          }
           const { data = {}, code } = JSON.parse(_data);
           $.log(`\n【🏖岛主】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
           if (data.value) {
@@ -740,26 +828,34 @@ function submitInviteId(userName) {
 
 //随机超级助力好友
 function createSuperAssistUser() {
-  return new Promise(async(resolve) => {
+  return new Promise(async (resolve) => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
       try {
+        if (_data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl('user/JoinScene', 
+        $.get(taskUrl('user/JoinScene',
           `ptag=&strPgtimestamp=${$.strPgtimestamp}&strPhoneID=${$.strPhoneID}&strPgUUNum=${$.strPgUUNum}&strShareId=${escape(data.value)}&dwSceneId=${sceneId}&dwType=2`,
-          `_cfd_t,bizCode,dwEnv,dwSceneId,dwType,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strShareId,strZone`), 
+          `_cfd_t,bizCode,dwEnv,dwSceneId,dwType,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strShareId,strZone`),
           async (err, resp, data) => {
-          try {
-            const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
-            $.log(`\n【👫🏻超级助力】超级助力：${sErrMsg}\n${$.showLog ? data : ''}`);
-          } catch (e) {
-            $.logErr(e, resp);
-          } finally {
-            resolve();
-          }
-        });
+            try {
+              if (data.startsWith('<')) {
+                resolve();
+                return;
+              }
+              const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
+              $.log(`\n【👫🏻超级助力】超级助力：${sErrMsg}\n${$.showLog ? data : ''}`);
+            } catch (e) {
+              $.logErr(e, resp);
+            } finally {
+              resolve();
+            }
+          });
       } catch (e) {
         $.logErr(e, resp);
       } finally {
@@ -776,10 +872,18 @@ function createAssistUser() {
     const sceneId = Math.min(...sceneIds);
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
       try {
+        if (_data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
         $.get(taskUrl('user/JoinScene', `strShareId=${escape(data.value)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
           try {
+            if (data.startsWith('<')) {
+              resolve();
+              return;
+            }
             const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
             $.log(`\n【👬普通助力】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
           } catch (e) {
@@ -802,6 +906,10 @@ function submitGroupId() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, g_data) => {
       try {
+        if (g_data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { GroupInfo: { strGroupId }, strPin } = JSON.parse(g_data);
         if (!strGroupId) {
           const status = await openGroup();
@@ -817,6 +925,10 @@ function submitGroupId() {
             { url: `https://api.ninesix.cc/api/jx-cfd-group/${strGroupId}/${encodeURIComponent(strPin)}` },
             async (err, resp, _data) => {
               try {
+                if (_data.startsWith('<')) {
+                  resolve();
+                  return;
+                }
                 const { data = {}, code } = JSON.parse(_data);
                 $.log(`\n【🏝寻宝大作战】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
                 if (data.value) {
@@ -844,8 +956,12 @@ function submitGroupId() {
 //开启寻宝大作战
 function openGroup() {
   return new Promise(async (resolve) => {
-    $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`,`_cfd_t,bizCode,dwEnv,dwIsNewUser,ptag,source,strZone`), async (err, resp, data) => {
+    $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`, `_cfd_t,bizCode,dwEnv,dwIsNewUser,ptag,source,strZone`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { sErrMsg } = JSON.parse(data);
         $.log(`\n【🏝寻宝大作战】${sErrMsg}\n${$.showLog ? data : ''}`);
         resolve(0);
@@ -861,23 +977,31 @@ function openGroup() {
 //助力好友寻宝大作战
 function joinGroup() {
   return new Promise(async (resolve) => {
-    $.get({ url: 'https://api.ninesix.cc/api/jx-cfd-group' },async (err, resp, _data) => {
+    $.get({ url: 'https://api.ninesix.cc/api/jx-cfd-group' }, async (err, resp, _data) => {
       try {
+        if (_data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl(`user/JoinGroup`, 
+        $.get(taskUrl(`user/JoinGroup`,
           `ptag=138920.20.4&strGroupId=${data.value}&dwIsNewUser=${$.info.dwIsNewUser}&strPgtimestamp=${$.strPgtimestamp}&strPhoneID=${$.strPhoneID}&strPgUUNum=${$.strPgUUNum}`,
-          `_cfd_t,bizCode,dwEnv,dwIsNewUser,pgUUNum,pgtimestamp,phoneID,ptag,source,strGroupId,strZone`), 
+          `_cfd_t,bizCode,dwEnv,dwIsNewUser,pgUUNum,pgtimestamp,phoneID,ptag,source,strGroupId,strZone`),
           async (err, resp, data) => {
-          try {
-            const { sErrMsg } = JSON.parse(data);
-            $.log(`\n【🏝寻宝大作战】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
-          } catch (e) {
-            $.logErr(e, resp);
-          } finally {
-            resolve();
-          }
-        });
+            try {
+              if (data.startsWith('<')) {
+                resolve();
+                return;
+              }
+              const { sErrMsg } = JSON.parse(data);
+              $.log(`\n【🏝寻宝大作战】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
+            } catch (e) {
+              $.logErr(e, resp);
+            } finally {
+              resolve();
+            }
+          });
       } catch (e) {
         $.logErr(e, resp);
       } finally {
@@ -892,6 +1016,10 @@ function openPeriodBox() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, data) => {
       try {
+        if (data.startsWith('<')) {
+          resolve();
+          return;
+        }
         const { PeriodBox = [{}] } = JSON.parse(data);
         for (var i = 0; i < PeriodBox.length; i++) {
           const { dwStatus, dwSeq, strBrandName } = PeriodBox[i];
@@ -900,6 +1028,10 @@ function openPeriodBox() {
             await $.wait(1000);
             await $.get(taskUrl(`user/OpenPeriodBox`, `dwSeq=${dwSeq}`), async (err, resp, data) => {
               try {
+                if (data.startsWith('<')) {
+                  resolve();
+                  return;
+                }
                 const { dwMoney, iRet, sErrMsg } = JSON.parse(data)
                 $.log(`\n【🏝寻宝大作战】【${strBrandName}】开宝箱：${sErrMsg == 'success' ? ` 获得财富值 ¥ ${dwMoney}` : sErrMsg}\n${$.showLog ? data : ''}`);
               } catch (e) {

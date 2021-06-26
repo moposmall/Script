@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created：2021/6/4 23:30
-    Updated: 2021/6/11 22:00
+    Updated: 2021/6/26 22:00
     Thanks: 
         https://github.com/whyour
         https://www.orzlee.com/web-development/2021/03/03/lxk0301-jingdong-signin-scriptjingxi-factory-solves-the-problem-of-unable-to-signin.html
@@ -91,6 +91,10 @@ function GetHomePageInfo() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`queryservice/GetHomePageInfo`, ``), async (err, resp, _data) => {
             try {
+                if (_data.startsWith('<')) {
+                    resolve();
+                    return;
+                }
                 // 格式化JSON数据
                 _data = _data.replace("jsonpCBKJJJ(", "");
                 _data = _data.substring(0, _data.length - 1);
@@ -142,6 +146,10 @@ function GetUserTaskStatusList(taskType) {
             case 1:     // 成就任务
                 $.get(taskListUrl(`GetUserTaskStatusList`, `&dateType=1`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         //$.log(_data);
                         const {
                             data: {
@@ -162,6 +170,10 @@ function GetUserTaskStatusList(taskType) {
             case 2:     // 每日任务(领取奖励)
                 $.get(taskListUrl(`GetUserTaskStatusList`, `&dateType=2`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         //$.log(_data);
                         const {
                             data: {
@@ -181,6 +193,10 @@ function GetUserTaskStatusList(taskType) {
             case 3:     // 每日任务(做任务)
                 $.get(taskListUrl(`GetUserTaskStatusList`, `&dateType=2`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         //$.log(_data);
                         const {
                             data: {
@@ -211,6 +227,10 @@ function DoTask() {
                 const { description, taskId } = $.allTask[i];
                 $.get(taskListUrl(`DoTask`, `&taskId=${taskId}&configExtra=`, 'bizCode,configExtra,source,taskId'), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         const {
                             data,
                             msg,
@@ -244,6 +264,10 @@ function Award() {
                 const { description, reward, taskId } = $.allTask[i];
                 $.get(taskListUrl(`Award`, `&taskId=${taskId}`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         const {
                             data,
                             msg,
@@ -284,6 +308,10 @@ function GetCoin(homepageinfo) {
             $.log(token, token2);
             $.get(taskUrl(`operservice/GetCoin`, `&token=${token}`, 'channel,sceneid,token'), async (err, resp, _data) => {
                 try {
+                    if (_data.startsWith('<')) {
+                        resolve();
+                        return;
+                    }
                     // 格式化JSON数据
                     const {
                         data: {
@@ -326,6 +354,10 @@ function Feed(homepageinfo) {
             if (value >= 10) {
                 $.get(taskUrl(`operservice/Feed`, ``, `channel,sceneid`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
                         const {
                             data,
                             message,
@@ -385,6 +417,10 @@ function Buy() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`operservice/Buy`, `&type=1`, 'channel,sceneid,type'), async (err, resp, _data) => {
             try {
+                if (_data.startsWith('<')) {
+                    resolve();
+                    return;
+                }
                 const {
                     data: {
                         newnum,
@@ -415,6 +451,10 @@ function GetSelfResult(homepageinfo) {
             const { petid } = info[0];
             $.get(taskUrl(`operservice/GetSelfResult`, `&type=11&itemid=${petid}`, 'channel,itemid,sceneid,type'), async (err, resp, _data) => {
                 try {
+                    if (_data.startsWith('<')) {
+                        resolve();
+                        return;
+                    }
                     const {
                         data: {
                             addnum,

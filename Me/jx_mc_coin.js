@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created：2021/6/4 23:30
-    Updated: 2021/6/9 7:30
+    Updated: 2021/6/26 22:00
     
     ！！！先将新手任务做完，再执行本脚本，不然会出现未知错误
     cron 10 * * * * 或者 0 10 * * * *
@@ -42,7 +42,7 @@ $.appId = 10028;
             const homepageinfo = await GetHomePageInfo();
             await GetSelfResult();
 
-            for (let n = 0; n <= 6; n++) {
+            for (let n = 0; n <= 4; n++) {
                 await $.wait(800);
                 await Action(1);
                 await $.wait(800);
@@ -60,6 +60,10 @@ function GetHomePageInfo() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`queryservice/GetHomePageInfo`, ``), async (err, resp, _data) => {
             try {
+                if (_data.startsWith('<')) {
+                    resolve();
+                    return;
+                  }
                 // 格式化JSON数据
                 _data = _data.replace("jsonpCBKJJJ(", "");
                 _data = _data.substring(0, _data.length - 1);
@@ -119,6 +123,11 @@ function Action(type) {
                 for (let i = 0; i < $.petid.length; i++) {
                     $.get(taskUrl(`operservice/Action`, `&type=${type}&petid=${$.petid[i]}`, `channel,petid,sceneid,type`), async (err, resp, _data) => {
                         try {
+                            if (_data.startsWith('<')) {
+                                resolve();
+                                return;
+                              }
+                            $.log(_data);
                             const { data: {
                                 addcoins,
                             } = {},
@@ -148,6 +157,11 @@ function Action(type) {
             case 2:
                 $.get(taskUrl(`operservice/Action`, `&type=${type}`, `channel,sceneid,type`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                          }
+                        $.log(_data);
                         const { data: {
                             addcoins,
                         } = {},
@@ -182,6 +196,11 @@ function GetSelfResult() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`operservice/GetSelfResult`, `&type=14&itemid=undefined`, `channel,sceneid,type`), async (err, resp, _data) => {
             try {
+                if (_data.startsWith('<')) {
+                    resolve();
+                    return;
+                  }
+                $.log(_data);
                 const { data, message, ret } = JSON.parse(_data);
                 if (ret == 0)
                     $.log(_data);

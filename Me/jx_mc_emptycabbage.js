@@ -3,8 +3,8 @@
     Name: 京喜牧场清空白菜
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
-    Created：2021/6/11 20:30
-    Updated: 
+    Created: 2021/6/11 20:30
+    Updated: 2021/6/26 22:00ß
     
     按需手动运行脚本
     如果你像我一样比较懒，看着白菜数量那么多用不完
@@ -24,6 +24,8 @@ $.cookieArr = [];
 $.currentCookie = '';
 $.petid = [];
 $.appId = 10028;
+$.tag = true;
+$.homepageinfo = '';
 
 !(async () => {
     if (!getCookies()) return;
@@ -36,22 +38,26 @@ $.appId = 10028;
             $.index = i + 1;
             $.log(`\n开始【京东账号${i + 1}】${$.userName}`);
 
-            const homepageinfo = await GetHomePageInfo();
+            $.homepageinfo = await GetHomePageInfo();
 
-            const { materialinfo } = homepageinfo;
+            const { materialinfo } = $.homepageinfo;
             const info = materialinfo.filter(x => x.type === 1);
             const { value } = info[0];
 
-            for (let i = 1; i <= parseInt(value/10) ; i++) {
-                // 领金蛋
-                await $.wait(1000);
-                await GetSelfResult(homepageinfo);
-                // 喂食
-                await $.wait(1000);
-                await Feed(homepageinfo);
-                // 用户信息
-                await $.wait(500);
-                homepageinfo = await GetHomePageInfo();
+            for (let i = 1; i <= parseInt(value / 10); i++) {
+                if ($.tag === true) {
+                    // 领金蛋
+                    await $.wait(1000);
+                    await GetSelfResult($.homepageinfo);
+                    // 喂食
+                    await $.wait(1000);
+                    await Feed($.homepageinfo);
+                    // 用户信息
+                    await $.wait(500);
+                    $.homepageinfo = await GetHomePageInfo();
+                } else {
+                    resolve();
+                }
             }
         }
     }
@@ -65,6 +71,10 @@ function GetHomePageInfo() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`queryservice/GetHomePageInfo`, ``), async (err, resp, _data) => {
             try {
+                if (_data.startsWith('<')) {
+                    resolve();
+                    return;
+                }
                 // 格式化JSON数据
                 _data = _data.replace("jsonpCBKJJJ(", "");
                 _data = _data.substring(0, _data.length - 1);
@@ -121,12 +131,22 @@ function Feed(homepageinfo) {
             if (value >= 10) {
                 $.get(taskUrl(`operservice/Feed`, ``, `channel,sceneid`), async (err, resp, _data) => {
                     try {
+                        if (_data.startsWith('<')) {
+                            resolve();
+                            return;
+                        }
+                        $.log(_data);
                         const {
                             data,
                             message,
                             ret
                         } = JSON.parse(_data);
                         //$.log(_data);
+                        if (ret != 0) {
+                            $.tag = false;
+                        } else {
+                            $.tag = true;
+                        }
                         $.log(`【投喂🥬】${message}，请加大力度～ \n ${$.showMsg ? _data : ""} `);
                     }
                     catch (e) {
@@ -161,6 +181,11 @@ function GetSelfResult(homepageinfo) {
             const { petid } = info[0];
             $.get(taskUrl(`operservice/GetSelfResult`, `&type=11&itemid=${petid}`, 'channel,itemid,sceneid,type'), async (err, resp, _data) => {
                 try {
+                    if (_data.startsWith('<')) {
+                        resolve();
+                        return;
+                    }
+                    $.log(_data);
                     const {
                         data: {
                             addnum,
