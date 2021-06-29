@@ -6,7 +6,7 @@
     Address: 京喜App ====>>>> 全民赚大钱
     Author: MoPoQAQ
     Created：2020/x/xx xx:xx
-    Updated: 2021/6/26 22:00
+    Updated: 2021/6/29 16:00
     Thanks:
       whyour大佬
       GitHub: https://github.com/whyour
@@ -177,7 +177,7 @@ function getUserInfo() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/QueryUserInfo`, `ptag=7155.9.47`, `_cfd_t,bizCode,ddwTaskId,dwEnv,ptag,source,strShareId,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -225,7 +225,7 @@ function querySignList() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`task/QuerySignListV2`, `ptag=`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -258,7 +258,7 @@ async function userSignReward(dwUserFlag, ddwMoney) {
       async (err, resp, data) => {
         try {
           //$.log(data)
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -311,7 +311,7 @@ function getMoney_dwSource_1(_key, sceneList) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=undefined&dwSource=1`, `_cfd_t,bizCode,dwEnv,dwSceneId,dwSource,ptag,source,strEmployeeId,strZone`),
       async (err, resp, data) => {
         try {
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -334,7 +334,7 @@ function getMoney_dwSource_2(_key, sceneList, key) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=${key}&dwSource=2`, `_cfd_t,bizCode,dwEnv,dwSceneId,dwSource,ptag,source,strEmployeeId,strZone`),
       async (err, resp, data) => {
         try {
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -357,7 +357,7 @@ function getMoney_dwSource_3(_key, sceneList) {
       taskUrl(`user/GetMoney`, `ptag=&dwSceneId=${_key}&strEmployeeId=&dwSource=3&strPgtimestamp=${$.strPgtimestamp}&strPhoneID=${$.strPhoneID}&strPgUUNum=${$.strPgUUNum}`, ``),
       async (err, resp, data) => {
         try {
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -378,7 +378,7 @@ function getAdvEmployee(_key) {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GetAdvEmployee`, `ptag=&dwSenceId=${_key}&dwIsSlave=0`, `_cfd_t,bizCode,dwEnv,dwIsSlave,dwSenceId,ptag,source,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -403,7 +403,7 @@ function advEmployeeAward(_key, strSceneName) {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/AdvEmployeeAward`, `dwSenceId=${_key}`, `_cfd_t,bizCode,dwEnv,dwSenceId,ptag,source,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -423,7 +423,7 @@ function promotionAward() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/PromotionAward`, ``, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -442,7 +442,7 @@ function friendCircle() {
     $.get(taskUrl(`user/FriendCircle`, `ptag=&dwPageIndex=1&dwPageSize=20`, `_cfd_t,bizCode,dwEnv,dwPageIndex,dwPageSize,ptag,source,strZone`), async (err, resp, data) => {
       try {
         //$.log(`\n好友圈列表\n${data}`);
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -469,7 +469,7 @@ function queryFriendIsland(strShareId,) {
       async (err, resp, data) => {
         try {
           //$.log(`\n获取好友信息\n${data}`);
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -497,7 +497,7 @@ function stealMoney(strShareId, sceneId, strFriendNick, strSceneName) {
     $.get(taskUrl(`user/StealMoney`, `ptag=&strFriendId=${strShareId}&dwSceneId=${sceneId}&sceneval=2`, `_cfd_t,bizCode,dwEnv,dwSceneId,ptag,source,strFriendId,strZone`), async (err, resp, data) => {
       try {
         //$.log(data);
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -538,7 +538,7 @@ function doTreasureHunt(place) {
       async (err, resp, data) => {
         try {
           //$.log(data);
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -562,7 +562,7 @@ function getTaskList(taskType) {
       case 0: //日常任务
         $.get(taskListUrl(`GetUserTaskStatusList`, `ptag=7155.9.47&taskId=0`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -579,7 +579,7 @@ function getTaskList(taskType) {
       case 1: //成就任务
         $.get(taskUrl(`consume/AchieveInfo`, `ptag=7155.9.47`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone`), async (err, resp, data) => {
           try {
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -663,7 +663,7 @@ function doTask(taskinfo) {
         await $.get(taskListUrl(`DoTask`, `ptag=&taskId=${taskId}&configExtra=${configExtra}`, `_cfd_t,bizCode,configExtra,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
             //$.log(`taskId:${taskId},data:${data}`);
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -682,7 +682,7 @@ function doTask(taskinfo) {
       await $.get(taskListUrl(`DoTask`, `ptag=&taskId=${taskId}&configExtra=${configExtra}`, `_cfd_t,bizCode,configExtra,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
         try {
           //$.log(`taskId:${taskId},data:${data}`);
-          if (data.startsWith('<')) {
+          if (!data || data.startsWith('<')) {
             resolve();
             return;
           }
@@ -707,7 +707,7 @@ function awardTask(taskType, taskinfo) {
         const { taskId, taskName } = taskinfo;
         $.get(taskListUrl(`Award`, `ptag=&taskId=${taskId}`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,taskId`), async (err, resp, data) => {
           try {
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -731,7 +731,7 @@ function awardTask(taskType, taskinfo) {
         const { strTaskIndex, strTaskDescr } = taskinfo;
         $.get(taskUrl(`consume/AchieveAward`, `ptag=&strTaskIndex=${strTaskIndex}`, `_cfd_t,bizCode,dwEnv,ptag,source,strZone,strTaskIndex`), async (err, resp, data) => {
           try {
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -755,7 +755,7 @@ function funCenterState() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`consume/FunCenterState`, `strType=1`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -778,7 +778,7 @@ function soltMachine(strCouponPool, strGoodsPool, ddwConfVersion) {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`consume/SlotMachine`, `strCouponPool=${strCouponPool}&strGoodsPool=${strGoodsPool}&ddwConfVersion=${ddwConfVersion}`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -807,7 +807,7 @@ function submitInviteId(userName) {
       },
       async (err, resp, _data) => {
         try {
-          if (_data.startsWith('<')) {
+          if (!_data || _data.startsWith('<')) {
             resolve();
             return;
           }
@@ -833,7 +833,7 @@ function createSuperAssistUser() {
     const sceneId = Math.min(...sceneIds);
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
       try {
-        if (_data.startsWith('<')) {
+        if (!_data || _data.startsWith('<')) {
           resolve();
           return;
         }
@@ -844,7 +844,7 @@ function createSuperAssistUser() {
           `_cfd_t,bizCode,dwEnv,dwSceneId,dwType,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strShareId,strZone`),
           async (err, resp, data) => {
             try {
-              if (data.startsWith('<')) {
+              if (!data || data.startsWith('<')) {
                 resolve();
                 return;
               }
@@ -872,7 +872,7 @@ function createAssistUser() {
     const sceneId = Math.min(...sceneIds);
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
       try {
-        if (_data.startsWith('<')) {
+        if (!_data || _data.startsWith('<')) {
           resolve();
           return;
         }
@@ -880,7 +880,7 @@ function createAssistUser() {
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
         $.get(taskUrl('user/JoinScene', `strShareId=${escape(data.value)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
           try {
-            if (data.startsWith('<')) {
+            if (!data || data.startsWith('<')) {
               resolve();
               return;
             }
@@ -906,7 +906,7 @@ function submitGroupId() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, g_data) => {
       try {
-        if (g_data.startsWith('<')) {
+        if (!g_data || g_data.startsWith('<')) {
           resolve();
           return;
         }
@@ -925,7 +925,7 @@ function submitGroupId() {
             { url: `https://api.ninesix.cc/api/jx-cfd-group/${strGroupId}/${encodeURIComponent(strPin)}` },
             async (err, resp, _data) => {
               try {
-                if (_data.startsWith('<')) {
+                if (!_data || _data.startsWith('<')) {
                   resolve();
                   return;
                 }
@@ -958,7 +958,7 @@ function openGroup() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`, `_cfd_t,bizCode,dwEnv,dwIsNewUser,ptag,source,strZone`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -979,7 +979,7 @@ function joinGroup() {
   return new Promise(async (resolve) => {
     $.get({ url: 'https://api.ninesix.cc/api/jx-cfd-group' }, async (err, resp, _data) => {
       try {
-        if (_data.startsWith('<')) {
+        if (!_data || _data.startsWith('<')) {
           resolve();
           return;
         }
@@ -990,7 +990,7 @@ function joinGroup() {
           `_cfd_t,bizCode,dwEnv,dwIsNewUser,pgUUNum,pgtimestamp,phoneID,ptag,source,strGroupId,strZone`),
           async (err, resp, data) => {
             try {
-              if (data.startsWith('<')) {
+              if (!data || data.startsWith('<')) {
                 resolve();
                 return;
               }
@@ -1016,7 +1016,7 @@ function openPeriodBox() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, data) => {
       try {
-        if (data.startsWith('<')) {
+        if (!data || data.startsWith('<')) {
           resolve();
           return;
         }
@@ -1028,7 +1028,7 @@ function openPeriodBox() {
             await $.wait(1000);
             await $.get(taskUrl(`user/OpenPeriodBox`, `dwSeq=${dwSeq}`), async (err, resp, data) => {
               try {
-                if (data.startsWith('<')) {
+                if (!data || data.startsWith('<')) {
                   resolve();
                   return;
                 }

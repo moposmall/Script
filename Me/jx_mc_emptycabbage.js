@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created: 2021/6/11 20:30
-    Updated: 2021/6/26 22:00ß
+    Updated: 2021/6/29 16:00
     
     按需手动运行脚本
     如果你像我一样比较懒，看着白菜数量那么多用不完
@@ -71,7 +71,7 @@ function GetHomePageInfo() {
     return new Promise(async (resolve) => {
         $.get(taskUrl(`queryservice/GetHomePageInfo`, ``), async (err, resp, _data) => {
             try {
-                if (_data.startsWith('<')) {
+                if (!_data || _data.startsWith('<')) {
                     resolve();
                     return;
                 }
@@ -131,7 +131,7 @@ function Feed(homepageinfo) {
             if (value >= 10) {
                 $.get(taskUrl(`operservice/Feed`, ``, `channel,sceneid`), async (err, resp, _data) => {
                     try {
-                        if (_data.startsWith('<')) {
+                        if (!_data || _data.startsWith('<')) {
                             resolve();
                             return;
                         }
@@ -181,7 +181,7 @@ function GetSelfResult(homepageinfo) {
             const { petid } = info[0];
             $.get(taskUrl(`operservice/GetSelfResult`, `&type=11&itemid=${petid}`, 'channel,itemid,sceneid,type'), async (err, resp, _data) => {
                 try {
-                    if (_data.startsWith('<')) {
+                    if (!_data || _data.startsWith('<')) {
                         resolve();
                         return;
                     }
