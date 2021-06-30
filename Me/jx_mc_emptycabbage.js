@@ -4,7 +4,7 @@
     Address: 京喜App -> 我的 -> 京喜牧场
     Author: MoPoQAQ
     Created: 2021/6/11 20:30
-    Updated: 2021/6/29 16:00
+    Updated: 2021/6/30 9:00
     
     按需手动运行脚本
     如果你像我一样比较懒，看着白菜数量那么多用不完
@@ -56,7 +56,7 @@ $.homepageinfo = '';
                     await $.wait(500);
                     $.homepageinfo = await GetHomePageInfo();
                 } else {
-                    resolve();
+                    return;
                 }
             }
         }
@@ -144,10 +144,11 @@ function Feed(homepageinfo) {
                         //$.log(_data);
                         if (ret != 0) {
                             $.tag = false;
+                            $.log(`【投喂🥬】${message}，今天不要再运行此脚本了~ \n ${$.showMsg ? _data : ""} `);
                         } else {
                             $.tag = true;
+                            $.log(`【投喂🥬】${message}，请加大力度～ \n ${$.showMsg ? _data : ""} `);
                         }
-                        $.log(`【投喂🥬】${message}，请加大力度～ \n ${$.showMsg ? _data : ""} `);
                     }
                     catch (e) {
                         $.logErr(e, resp);
