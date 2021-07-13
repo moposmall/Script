@@ -1,6 +1,6 @@
 /**
 *
-    ！！！此脚本永远禁止 “所谓大佬————shuye73” 使用，是我耽误您抄袭了，祝您和您的家人平安。
+    此脚本已失效
 
     Name: 京喜财富岛
     Address: 京喜App ====>>>> 全民赚大钱
@@ -103,8 +103,8 @@ $.appId = 10009;
 
       const beginInfo = await getUserInfo();
 
-      await $.wait(500);
-      await querySignList();
+      //await $.wait(500);
+      //await querySignList();
 
       //领取岛主升级奖励
       //promotionAward();
@@ -113,57 +113,55 @@ $.appId = 10009;
       //await $.wait(500);
       //getAdvEmployee(1001);
 
-      await $.wait(500);
-      await getMoney();
+      //await $.wait(500);
+      //await getMoney();
 
       //日常任务
-      await $.wait(500);
-      await getTaskList(0);
-      await $.wait(500);
-      await browserTask(0);
+      //await $.wait(500);
+      //await getTaskList(0);
+      //await $.wait(500);
+      //await browserTask(0);
 
       //寻宝
-      await $.wait(500);
-      await treasureHunt();
+      //await $.wait(500);
+      //await treasureHunt();
 
       //偷财富
-      await $.wait(500);
-      await friendCircle();
+      //await $.wait(500);
+      //await friendCircle();
 
       //成就任务
-      await $.wait(500);
-      await getTaskList(1);
-      await $.wait(500);
-      await browserTask(1);
+      //await $.wait(500);
+      //await getTaskList(1);
+      //await $.wait(500);
+      //await browserTask(1);
 
       //抽奖
-      await $.wait(500);
-      await funCenterState();
+      //await $.wait(500);
+      //await funCenterState();
 
       //领取寻宝宝箱
-      await $.wait(500);
-      await openPeriodBox();
+      //await $.wait(500);
+      //await openPeriodBox();
 
-      const endInfo = await getUserInfo();
-      $.result.push(
-        `【💵财富值】任务前: ${beginInfo.ddwMoney}\n【💵财富值】任务后: ${endInfo.ddwMoney}`,
-        `【💵财富值】净增值: ${endInfo.ddwMoney - beginInfo.ddwMoney}`
-      );
+      //const endInfo = await getUserInfo();
+      $.result.push(`此脚本已失效`,);
+      //$.result.push(`【💵财富值】任务前: ${beginInfo.ddwMoney}\n【💵财富值】任务后: ${endInfo.ddwMoney}`,`【💵财富值】净增值: ${endInfo.ddwMoney - beginInfo.ddwMoney}`);
 
       //出岛寻宝大作战
-      await $.wait(500);
-      await submitGroupId();
-      await $.wait(500);
-      await joinGroup();
+      //await $.wait(500);
+      //await submitGroupId();
+      //await $.wait(500);
+      //await joinGroup();
       //提交邀请码
-      await $.wait(500);
-      await submitInviteId($.userName);
+      //await $.wait(500);
+      //await submitInviteId($.userName);
       //超级助力
-      await $.wait(500);
-      await createSuperAssistUser();
+      //await $.wait(500);
+      //await createSuperAssistUser();
       //普通助力
-      await $.wait(500);
-      await createAssistUser();
+      //await $.wait(500);
+      //await createAssistUser();
     }
   }
   await $.wait(500);
